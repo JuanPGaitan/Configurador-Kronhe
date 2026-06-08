@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KROHNE — Configurador de productos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-tag">KROHNE</span>
+        <h1>Configurador de productos</h1>
+        <p class="subtitle">Seleccioná un equipo para comenzar la configuración</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <div class="product-grid">
+
+      <!-- Optiflux 2000 -->
+      <div class="product-card">
+        <div class="product-image-wrap">
+          <img src="data/Optiflux 2000.jpg" alt="Optiflux 2000" class="product-image"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="product-image-placeholder" style="display:none">
+            <span>OPTIFLUX 2000</span>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">OPTIFLUX 2000</div>
+          <div class="product-desc">Sensor de caudal electromagnético — Hardrubber</div>
+          <a href="optiflux.html" class="configure-btn">Configurar</a>
+        </div>
+      </div>
+
+      <!-- IFC 050 -->
+      <div class="product-card">
+        <div class="product-image-wrap">
+          <img src="data/IFC 050.jpg" alt="IFC 050" class="product-image"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="product-image-placeholder" style="display:none">
+            <span>IFC 050</span>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">IFC 050</div>
+          <div class="product-desc">Convertidor de señal de caudal</div>
+          <a href="ifc050.html" class="configure-btn">Configurar</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

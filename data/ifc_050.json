@@ -1,0 +1,76 @@
+{
+    "IFC 050": {
+        "Signal Converters": [
+            {
+                "code": "VN344",
+                "_name": "IFC 050",
+                "price_usd": 0,
+                "Type": [
+                    { "code": "2", "description": "IFC 050 C (Compact without display - BASIC IO)", "price_usd": 669 },
+                    { "code": "4", "description": "IFC 050 C (Compact with display - BASIC IO)", "price_usd": 838 },
+                    { "code": "M", "description": "IFC 050 W (Wall without display - BASIC IO)", "price_usd": 838 },
+                    { "code": "N", "description": "IFC 050 W (Wall with display - BASIC IO)", "price_usd": 1005 }
+                ],
+                "Power supply": [
+                    { "code": "1", "description": "24 V DC (16 - 32 V DC)", "price_adder": 0 },
+                    { "code": "A", "description": "100 - 230 V AC (85 - 250 V AC, 50/60 Hz)", "price_adder": 0 }
+                ],
+                "Ex-approval C": [
+                    { "code": "0", "description": "Without - non Ex", "price_adder": 0 },
+                    { "code": "X", "description": "KA EAC (Kazakhstan)", "price_adder": 0 }
+                ],
+                "Cable connection": [
+                    { "code": "4", "description": "½\" NPT", "price_adder": 0 },
+                    { "code": "5", "description": "PF ½", "price_adder": 0 },
+                    { "code": "6", "description": "M20 x 1,5", "price_adder": 0 }
+                ],
+                "Operating manual / Operating language": [
+                    { "code": "5", "description": "Without / German", "price_adder": 0 },
+                    { "code": "6", "description": "Without / English", "price_adder": 0 },
+                    { "code": "7", "description": "Without / French", "price_adder": 0 },
+                    { "code": "8", "description": "Without / Spanish", "price_adder": 0 },
+                    { "code": "A", "description": "Without / Eastern Europe group (GB, CZ, HU, SI, SL, AL, BG & RO)", "price_adder": 0 },
+                    { "code": "B", "description": "Without / Northern Europe group (GB, DK, FI, LT, NO, PL, EE & LV)", "price_adder": 0 },
+                    { "code": "C", "description": "Without / Southern Europe group (GB, IR, TR)", "price_adder": 0 },
+                    { "code": "H", "description": "Without / Italian", "price_adder": 0 },
+                    { "code": "K", "description": "Without / Portuguese", "price_adder": 0 },
+                    { "code": "L", "description": "Without / Dutch", "price_adder": 0 },
+                    { "code": "M", "description": "Without / Swedish", "price_adder": 0 },
+                    { "code": "X", "description": "Without / Russian", "price_adder": 0 }
+                ],
+                "Custody transfer": [
+                    { "code": "0", "description": "Without", "price_adder": 0 }
+                ],
+                "Process diagnostics": [
+                    { "code": "0", "description": "Standard (incl. tropicalized & empty pipe detection)", "price_adder": 0 }
+                ],
+                "Converter housing": [
+                    { "code": "1", "description": "Standard", "price_adder": 0 }
+                ],
+                "Communication": [
+                    { "code": "1", "description": "Basic IO (4-20 mA / HART + pulse / frequency / status)", "price_adder": 0 },
+                    { "code": "R", "description": "Basic IO + Modbus RTU (RS-485)", "price_adder": 84 }
+                ],
+                "1st IO Module": [
+                    { "code": "0", "description": "Without, no module possible", "price_adder": 0 }
+                ],
+                "2nd IO Module": [
+                    { "code": "0", "description": "Without, no module possible", "price_adder": 0 }
+                ],
+                "Reference Method": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 }
+                ],
+                "Tagplate (W only)": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "2", "description": "316 / 1.4401 tagplate (120 x 46 mm) (W)", "price_adder": 42 },
+                    { "code": "3", "description": "316 / 1.4401 tagplate (67 x 25 mm) (W)", "price_adder": 32 }
+                ],
+                "Quick Start language": [
+                    { "code": "1", "description": "German", "price_adder": 0 },
+                    { "code": "3", "description": "English", "price_adder": 0 },
+                    { "code": "4", "description": "French", "price_adder": 0 }
+                ]
+            }
+        ]
+    }
+}

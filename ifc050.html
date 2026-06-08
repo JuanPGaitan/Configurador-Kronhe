@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IFC 050 — Configurador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="back-btn">← Volver</a>
+      <div class="brand">
+        <span class="brand-tag">KROHNE</span>
+        <h1>IFC 050</h1>
+        <p class="subtitle">Convertidor de señal de caudal — Configurador de producto</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main class="main-col" id="configurator-wrapper">
+      <div id="configurator"></div>
+    </main>
+
+    <aside class="summary-col" id="summary-panel">
+      <div class="summary-card">
+        <div class="summary-header">
+          <span class="summary-label">Configuración</span>
+        </div>
+        <div class="summary-code-block">
+          <div class="summary-field-label">Código del equipo</div>
+          <div id="equipment-code" class="equipment-code">—</div>
+        </div>
+        <div class="summary-divider"></div>
+        <div id="selections-list" class="selections-list">
+          <p class="no-selections">Ninguna selección aún.</p>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total-row">
+          <span class="total-label">COSTO TOTAL</span>
+          <span id="total-price" class="total-price">—</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total-row">
+          <span class="total-label">PRECIO DE VENTA</span>
+          <span id="sale-price" class="total-price sale">—</span>
+        </div>
+        <p id="on-request-note" class="on-request-note hidden">* Algunos ítems requieren cotización.</p>
+        <button id="download-btn" class="download-btn hidden" onclick="downloadExcel()">⬇ Descargar configuración</button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="app_ifc050.js"></script>
+</body>
+</html>

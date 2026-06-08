@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OPTIFLUX 2000 — Configurador</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>OPTIFLUX 2000 — Configurador de producto</h1>
+    <p class="subtitle">Seleccioná las características para obtener el código y precio del equipo.</p>
+  </header>
+
+  <main>
+    <div id="configurator">
+      <!-- Los desplegables se generan dinámicamente acá -->
+    </div>
+
+    <div id="result" class="hidden">
+      <h2>Resultado</h2>
+      <div class="result-row">
+        <span class="result-label">Código del equipo:</span>
+        <span id="equipment-code" class="result-value code">—</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Precio total:</span>
+        <span id="total-price" class="result-value price">—</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
