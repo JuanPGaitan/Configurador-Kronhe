@@ -1,9 +1,108 @@
 const selections = {};
 let sectionOrder = [];
 
+
+// ── Auto-decode from URL param ─────────────────────────────
+function autoDecodeFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('decode');
+  if (!code || code.length < 6) return;
+
+  const prefix = code.slice(0, 5).toUpperCase();
+  const chars  = code.slice(5).toUpperCase().split('');
+
+  // Wait for first dropdown to appear
+  waitForDropdowns(() => {
+    // Step 1: select Primary Head by prefix (first dropdown)
+    const firstWrapper = document.querySelector('#configurator .custom-select-wrapper');
+    if (!firstWrapper) return;
+    const rows = firstWrapper.querySelectorAll('.dropdown-table tbody tr');
+    let headSelected = false;
+    for (const row of rows) {
+      const codeCell = row.querySelector('.col-code');
+      if (codeCell && codeCell.textContent.trim().toUpperCase() === prefix) {
+        row.click();
+        headSelected = true;
+        break;
+      }
+    }
+    if (!headSelected) return;
+
+    // Step 2: after head selected, apply chars by FIXED POSITION
+    // Wait for sub-dropdowns to render, then apply each char to its exact position
+    setTimeout(() => applyByPosition(chars), 300);
+  });
+}
+
+function applyByPosition(chars) {
+  // Get ALL dropdowns currently in the configurator (excluding the first "Equipos" one)
+  // We apply chars[0] to dropdown index 1, chars[1] to index 2, etc.
+  // But dropdowns at deeper levels only appear after parent is selected,
+  // so we apply them sequentially with waits.
+  applyCharAtIndex(chars, 0);
+}
+
+function applyCharAtIndex(chars, charIdx) {
+  if (charIdx >= chars.length) return;
+
+  const targetCode = chars[charIdx].toUpperCase();
+
+  // Get all dropdowns in DOM order, skip the first one (Primary Head already selected)
+  waitForNthDropdown(charIdx + 1, function(wrapper) {
+    // If this dropdown was auto-selected (single option), skip it and move to next
+    const triggerText = wrapper.querySelector('.trigger-text');
+    const isAutoSelected = triggerText && !triggerText.classList.contains('placeholder');
+
+    if (isAutoSelected) {
+      // Check if the auto-selected value matches what we need
+      const selectedCode = wrapper.querySelector('.dropdown-table tbody tr.selected .col-code');
+      if (selectedCode && selectedCode.textContent.trim().toUpperCase() === targetCode) {
+        // Matches — move on
+        applyCharAtIndex(chars, charIdx + 1);
+        return;
+      }
+      // Doesn't match — need to override the auto-selection
+    }
+
+    // Click the matching row
+    const rows = wrapper.querySelectorAll('.dropdown-table tbody tr');
+    for (const row of rows) {
+      const codeCell = row.querySelector('.col-code');
+      if (codeCell && codeCell.textContent.trim().toUpperCase() === targetCode) {
+        row.click();
+        setTimeout(() => applyCharAtIndex(chars, charIdx + 1), 100);
+        return;
+      }
+    }
+    // Code not found in this dropdown — skip and continue
+    applyCharAtIndex(chars, charIdx + 1);
+  });
+}
+
+function waitForNthDropdown(n, callback, attempts) {
+  attempts = attempts || 0;
+  const wrappers = document.querySelectorAll('#configurator .custom-select-wrapper');
+  if (wrappers.length > n) {
+    callback(wrappers[n]);
+  } else if (attempts < 40) {
+    setTimeout(() => waitForNthDropdown(n, callback, attempts + 1), 100);
+  }
+}
+
+function waitForDropdowns(callback, attempts) {
+  attempts = attempts || 0;
+  const wrappers = document.querySelectorAll('#configurator .custom-select-wrapper');
+  if (wrappers.length > 0) {
+    callback();
+  } else if (attempts < 50) {
+    setTimeout(() => waitForDropdowns(callback, attempts + 1), 100);
+  }
+}
+
+
 fetch('./data/optiflux_2000_hardrubber_full.json')
   .then(r => r.json())
-  .then(data => buildConfigurator(data))
+  .then(data => { buildConfigurator(data); autoDecodeFromURL(); })
   .catch(err => console.error('Error cargando JSON:', err));
 
 function buildConfigurator(data) {
@@ -225,9 +324,17 @@ function updateSummary() {
   });
   const allFilled = Array.from(document.querySelectorAll('#configurator .custom-select-wrapper'))
     .every(w => { const t = w.querySelector('.trigger-text'); return t && !t.classList.contains('placeholder'); });
+  const extraCostEl = document.getElementById('extra-cost');
+  const discountEl  = document.getElementById('discount');
+  const extraCost   = parseFloat(extraCostEl?.value) || 0;
+  const discount    = parseFloat(discountEl?.value)  || 0;
+
   if (allFilled) {
-    priceEl.textContent = `USD ${total.toLocaleString()}`;
-    saleEl.textContent = `USD ${Math.round(total * 0.5 * 1.4 * 1.8).toLocaleString()}`;
+    const totalWithExtra = total + extraCost;
+    priceEl.textContent = `USD ${totalWithExtra.toLocaleString()}`;
+    const saleBase = totalWithExtra * 0.5 * 1.4 * 1.8;
+    const saleAfterDiscount = saleBase * (1 - discount / 100);
+    saleEl.textContent = `USD ${Math.round(saleAfterDiscount).toLocaleString()}`;
     if (hasOnRequest || hasRef) noteEl.classList.remove('hidden'); else noteEl.classList.add('hidden');
     dlBtn.classList.remove('hidden');
   } else {

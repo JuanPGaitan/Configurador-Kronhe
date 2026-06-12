@@ -1,9 +1,3 @@
-let eurUsdRate = 1.1528;
-fetch('https://api.exchangerate-api.com/v4/latest/EUR')
-  .then(r => r.json())
-  .then(d => { if (d.rates && d.rates.USD) eurUsdRate = d.rates.USD; })
-  .catch(() => {});
-
 const selections = {};
 let sectionOrder = [];
 
@@ -14,16 +8,37 @@ function autoDecodeFromURL() {
   const code = params.get('decode');
   if (!code || code.length < 6) return;
 
-  // IFC050 has only one head (auto-selected), chars start from position 5
-  const chars = code.slice(5).toUpperCase().split('');
+  const prefix = code.slice(0, 5).toUpperCase();
+  const chars  = code.slice(5).toUpperCase().split('');
 
-  // Wait for dropdowns to render (head is auto-selected since there's only one)
+  // Wait for first dropdown to appear
   waitForDropdowns(() => {
-    setTimeout(() => applyCharAtIndex(chars, 0), 300);
+    // Step 1: select Primary Head by prefix (first dropdown)
+    const firstWrapper = document.querySelector('#configurator .custom-select-wrapper');
+    if (!firstWrapper) return;
+    const rows = firstWrapper.querySelectorAll('.dropdown-table tbody tr');
+    let headSelected = false;
+    for (const row of rows) {
+      const codeCell = row.querySelector('.col-code');
+      if (codeCell && codeCell.textContent.trim().toUpperCase() === prefix) {
+        row.click();
+        headSelected = true;
+        break;
+      }
+    }
+    if (!headSelected) return;
+
+    // Step 2: after head selected, apply chars by FIXED POSITION
+    // Wait for sub-dropdowns to render, then apply each char to its exact position
+    setTimeout(() => applyByPosition(chars), 300);
   });
 }
 
 function applyByPosition(chars) {
+  // Get ALL dropdowns currently in the configurator (excluding the first "Equipos" one)
+  // We apply chars[0] to dropdown index 1, chars[1] to index 2, etc.
+  // But dropdowns at deeper levels only appear after parent is selected,
+  // so we apply them sequentially with waits.
   applyCharAtIndex(chars, 0);
 }
 
@@ -32,19 +47,24 @@ function applyCharAtIndex(chars, charIdx) {
 
   const targetCode = chars[charIdx].toUpperCase();
 
-  // For IFC050, start from dropdown index 1 (index 0 is the auto-selected head)
+  // Get all dropdowns in DOM order, skip the first one (Primary Head already selected)
   waitForNthDropdown(charIdx + 1, function(wrapper) {
+    // If this dropdown was auto-selected (single option), skip it and move to next
     const triggerText = wrapper.querySelector('.trigger-text');
     const isAutoSelected = triggerText && !triggerText.classList.contains('placeholder');
 
     if (isAutoSelected) {
+      // Check if the auto-selected value matches what we need
       const selectedCode = wrapper.querySelector('.dropdown-table tbody tr.selected .col-code');
       if (selectedCode && selectedCode.textContent.trim().toUpperCase() === targetCode) {
+        // Matches — move on
         applyCharAtIndex(chars, charIdx + 1);
         return;
       }
+      // Doesn't match — need to override the auto-selection
     }
 
+    // Click the matching row
     const rows = wrapper.querySelectorAll('.dropdown-table tbody tr');
     for (const row of rows) {
       const codeCell = row.querySelector('.col-code');
@@ -54,6 +74,7 @@ function applyCharAtIndex(chars, charIdx) {
         return;
       }
     }
+    // Code not found in this dropdown — skip and continue
     applyCharAtIndex(chars, charIdx + 1);
   });
 }
@@ -79,7 +100,8 @@ function waitForDropdowns(callback, attempts) {
 }
 
 
-fetch('./data/ifc_050.json')
+
+fetch('./data/optiflux_1000.json')
   .then(r => r.json())
   .then(data => { buildConfigurator(data); autoDecodeFromURL(); })
   .catch(err => console.error('Error cargando JSON:', err));
@@ -153,7 +175,6 @@ function getPrice(opt) {
 }
 
 function formatPriceDisplay(price) {
-  if (typeof price === 'number') price = Math.round(price * eurUsdRate);
   if (price === null || price === undefined || price === 0 || price === '0') return { text: '', cls: '' };
   if (price === 'on request' || price === 'On request') return { text: 'A consultar', cls: 'muted' };
   if (typeof price === 'string') return { text: price, cls: 'muted' };
@@ -245,8 +266,7 @@ function onOptionSelected(opt, path, sectionTitle, parent) {
   clearChildSelections(path);
   const price = getPrice(opt);
   const desc = opt._name || opt.description || opt.dn || opt.code;
-  const convertedPrice = typeof price === 'number' ? Math.round(price * eurUsdRate) : price;
-  selections[path] = { code: opt.code, price: convertedPrice, section: sectionTitle, description: desc };
+  selections[path] = { code: opt.code, price, section: sectionTitle, description: desc };
   if (subContainer) {
     const metaKeys = ['code','price_usd','price_adder','_name','description','dn','note','status'];
     Object.keys(opt).filter(k => !metaKeys.includes(k)).forEach(k => {
@@ -334,5 +354,5 @@ function downloadExcel() {
   ws['!cols'] = [{wch:12},{wch:35},{wch:60}];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Configuración');
-  XLSX.writeFile(wb, `IFC_050_${equipCode}.xlsx`);
+  XLSX.writeFile(wb, `OPTIFLUX_1000_${equipCode}.xlsx`);
 }

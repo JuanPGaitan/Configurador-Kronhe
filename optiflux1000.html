@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OPTIFLUX 2000 — Configurador</title>
+  <title>OPTIFLUX 1000 — Configurador</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
@@ -16,7 +16,7 @@
       <a href="index.html" class="back-btn">← Volver</a>
       <div class="brand">
         <span class="brand-tag">KROHNE</span>
-        <h1>OPTIFLUX 2000</h1>
+        <h1>OPTIFLUX 1000</h1>
         <p class="subtitle">Sensor de caudal electromagnético — Configurador de producto</p>
       </div>
     </div>
@@ -41,9 +41,19 @@
           <p class="no-selections">Ninguna selección aún.</p>
         </div>
         <div class="summary-divider"></div>
+        <div class="summary-input-row">
+          <label class="input-label" for="extra-cost">Costo extra</label>
+          <div class="input-wrap"><span class="input-prefix">USD</span><input type="number" id="extra-cost" class="summary-input" placeholder="0" min="0" oninput="updateSummary()"></div>
+        </div>
+        <div class="summary-divider"></div>
         <div class="summary-total-row">
           <span class="total-label">COSTO TOTAL</span>
           <span id="total-price" class="total-price">—</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-input-row">
+          <label class="input-label" for="discount">Descuento</label>
+          <div class="input-wrap"><input type="number" id="discount" class="summary-input" placeholder="0" min="0" max="100" oninput="updateSummary()"><span class="input-suffix">%</span></div>
         </div>
         <div class="summary-divider"></div>
         <div class="summary-total-row">
@@ -56,6 +66,6 @@
     </aside>
   </div>
 
-  <script src="app_optiflux.js"></script>
+  <script src="app_optiflux1000.js"></script>
 </body>
 </html>

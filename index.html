@@ -20,8 +20,39 @@
     </div>
   </header>
 
+
+  <div class="search-bar-wrap">
+    <div class="search-bar">
+      <input type="text" id="code-search" class="search-input" 
+             placeholder="Ingresá un código de equipo... ej: VB14443010222110000"
+             maxlength="30">
+      <button class="search-btn" onclick="decodeEquipmentCode()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Decodificar
+      </button>
+    </div>
+    <p id="search-error" class="search-error hidden">Código no reconocido. Verificá el prefijo del equipo.</p>
+  </div>
   <main class="home-main">
     <div class="product-grid">
+      <!-- Fila 1: sensores -->
+      <div class="product-row">
+
+      <!-- Optiflux 1000 -->
+      <div class="product-card">
+        <div class="product-image-wrap">
+          <img src="data/Optiflux 1000.jpg" alt="Optiflux 1000" class="product-image"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="product-image-placeholder" style="display:none">
+            <span>OPTIFLUX 1000</span>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-name">OPTIFLUX 1000</div>
+          <div class="product-desc">Sensor de caudal electromagnético — DN 2,5 - 250</div>
+          <a href="optiflux1000.html" class="configure-btn">Configurar</a>
+        </div>
+      </div>
 
       <!-- Optiflux 2000 -->
       <div class="product-card">
@@ -35,10 +66,13 @@
         <div class="product-info">
           <div class="product-name">OPTIFLUX 2000</div>
           <div class="product-desc">Sensor de caudal electromagnético — Hardrubber</div>
-          <a href="optiflux.html" class="configure-btn">Configurar</a>
+          <a href="optiflux2000.html" class="configure-btn">Configurar</a>
         </div>
       </div>
 
+      </div><!-- end product-row -->
+      <!-- Fila 2: electrónica -->
+      <div class="product-row product-row--center">
       <!-- IFC 050 -->
       <div class="product-card">
         <div class="product-image-wrap">
@@ -58,5 +92,31 @@
     </div>
   </main>
 
+
+  <script>
+    const PRODUCT_MAP = {
+      'VB144': { url: 'optiflux2000.html', json: 'data/optiflux_2000_hardrubber_full.json' },
+      'VB154': { url: 'optiflux2000.html', json: 'data/optiflux_2000_hardrubber_full.json' },
+      'VB164': { url: 'optiflux2000.html', json: 'data/optiflux_2000_hardrubber_full.json' },
+      'VB174': { url: 'optiflux1000.html', json: 'data/optiflux_1000.json' },
+      'VN344': { url: 'ifc050.html', json: 'data/ifc_050.json' },
+    };
+
+    document.getElementById('code-search').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') decodeEquipmentCode();
+    });
+
+    function decodeEquipmentCode() {
+      const raw = document.getElementById('code-search').value.trim().toUpperCase();
+      const errEl = document.getElementById('search-error');
+      if (raw.length < 5) { errEl.classList.remove('hidden'); return; }
+      const prefix = raw.slice(0, 5);
+      const product = PRODUCT_MAP[prefix];
+      if (!product) { errEl.classList.remove('hidden'); return; }
+      errEl.classList.add('hidden');
+      // Navigate passing the full code as URL param
+      window.location.href = `${product.url}?decode=${encodeURIComponent(raw)}`;
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,131 @@
+{
+    "OPTIFLUX 1000": {
+        "Primary Heads": [
+            {
+                "code": "VB174",
+                "_name": "Optiflux 1000 - DN 2.5 - 250",
+                "price_usd": 0,
+                "Nominal Diameter": [
+                    { "code": "F", "description": "DN 2,5 / 1/10\" 1000 F", "price_usd": 1440 },
+                    { "code": "G", "description": "DN 4,0 / 5/32\" 1000 F", "price_usd": 1440 },
+                    { "code": "H", "description": "DN 6,0 / ¼\" 1000 F", "price_usd": 1440 },
+                    { "code": "1", "description": "DN 10 / 3/8\" 1000 F", "price_usd": 1451 },
+                    { "code": "2", "description": "DN 15 / ½\" 1000 F", "price_usd": 1256 },
+                    { "code": "3", "description": "DN 20 / 3/4\" 1000 F", "price_usd": 1281 },
+                    { "code": "4", "description": "DN 25 / 1\" 1000 F", "price_usd": 1275 },
+                    { "code": "6", "description": "DN 40 / 1½\" 1000 F", "price_usd": 1216 },
+                    { "code": "7", "description": "DN 50 / 2\" 1000 F", "price_usd": 1034 },
+                    { "code": "8", "description": "DN 65 / 2½\" 1000 F", "price_usd": 1124 },
+                    { "code": "A", "description": "DN 80 / 3\" 1000 F", "price_usd": 1192 },
+                    { "code": "B", "description": "DN 100 / 4\" 1000 F", "price_usd": 1445 },
+                    { "code": "D", "description": "DN 150 / 6\" 1000 F", "price_usd": 1847 },
+                    { "code": "E", "description": "DN 200 / 8\" 1000 F", "price_usd": 2673 },
+                    { "code": "J", "description": "DN 250 / 10\" 1000 F", "price_usd": 3550 }
+                ],
+                "Nominal pressure": [
+                    { "code": "3", "description": "PN 16 EN 1092-1 (DN 100 - DN 250) (max. 16 bar)", "price_adder": 0 },
+                    { "code": "5", "description": "PN 40 EN 1092-1 (DN 2,5 - DN 80) (max. 16 bar)", "price_adder": 0 },
+                    { "code": "A", "description": "150 lb ANSI RF (3/8\" - 10\") (max. 232 psi)", "price_adder": 0 },
+                    { "code": "B", "description": "300 lb ANSI RF (3/8\" - 4\") (max. 232 psi)", "price_adder": 0 }
+                ],
+                "Approval": [
+                    { "code": "0", "description": "non Ex", "price_adder": 0 },
+                    { "code": "A", "description": "CSA Ordinary Location", "price_adder": 104 }
+                ],
+                "System design": [
+                    { "code": "1", "description": "Compact with aluminum converter housing / at converter", "price_adder": 0 },
+                    { "code": "2", "description": "Compact with stainless steel converter housing / at converter", "price_adder": 0 },
+                    { "code": "3", "description": "Modular / without", "price_adder": -102 },
+                    { "code": "4", "description": "Separate with aluminum connection box / 1/2\" NPT - ADAPTER (to be used only with conduits)", "price_adder": 16 },
+                    { "code": "5", "description": "Separate with aluminum connection box / PF 1/2", "price_adder": 16 },
+                    { "code": "6", "description": "Separate with aluminum connection box / M20 x 1,5 - CABLE GLANDS", "price_adder": 0 },
+                    { "code": "A", "description": "Separate with stainless steel connection box / 1/2\" NPT - ADAPTER (to be used only with conduits)", "price_adder": 297 },
+                    { "code": "B", "description": "Separate with stainless steel connection box / PF 1/2", "price_adder": 297 },
+                    { "code": "C", "description": "Separate with stainless steel connection box / M20 x 1,5 - CABLE GLANDS", "price_adder": 297 }
+                ],
+                "Converter model": [
+                    { "code": "0", "description": "Without / modular", "price_adder": 0 },
+                    { "code": "I", "description": "IFC 100 W (wall mount version)", "price_adder": 0 },
+                    { "code": "H", "description": "IFC 100 C (compact design)", "price_adder": 0 },
+                    { "code": "J", "description": "IFC 100 C 45º (compact design)", "price_adder": 0 },
+                    { "code": "C", "description": "IFC 300 C (compact design)", "price_adder": 0 },
+                    { "code": "D", "description": "IFC 300 F (field mount version)", "price_adder": 0 },
+                    { "code": "E", "description": "IFC 300 W (wall mount version)", "price_adder": 0 },
+                    { "code": "F", "description": "IFC 300 R (rack mount version)", "price_adder": 0 },
+                    { "code": "K", "description": "IFC 050 C (compact design)", "price_adder": 0 },
+                    { "code": "L", "description": "IFC 050 W (wall mount version)", "price_adder": 0 }
+                ],
+                "Mounting Material": [
+                    { "code": "1", "description": "Steel, galv.", "price_adder": "see page 1" },
+                    { "code": "2", "description": "Stainless Steel A2", "price_adder": "see page 1" },
+                    { "code": "3", "description": "Rubber sleeves", "price_adder": 0 }
+                ],
+                "Grounding ring material": [
+                    { "code": "1", "description": "St. Steel 1.4404 - 316 L (DN 2,5 - DN 25), without (DN 40 - DN250)", "price_adder": 0 },
+                    { "code": "K", "description": "St. Steel 1.4404 - 316 L TYPE 1 (DN 40 - DN 250)", "price_adder": "see page 3" },
+                    { "code": "Y", "description": "3rd grounding electrode (for DN50...DN250 | 2\"...10\" only)", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." }
+                ],
+                "Lining": [
+                    { "code": "0", "description": "FEP (standard)", "price_adder": 0 },
+                    { "code": "3", "description": "PFA", "price_adder": "see page 4" },
+                    { "code": "2", "description": "Hardrubber DN 2\" - DN 10\"", "price_adder": "see page 4" },
+                    { "code": "5", "description": "Polyurethane DN 2\" - DN 10\"", "price_adder": "see page 4" }
+                ],
+                "Electrodes": [
+                    { "code": "2", "description": "316 L (standard)", "price_adder": 0 },
+                    { "code": "3", "description": "Hastelloy C22", "price_adder": 48 },
+                    { "code": "4", "description": "Hastelloy B2", "price_adder": 233 },
+                    { "code": "5", "description": "Tantalum", "price_adder": 462 },
+                    { "code": "6", "description": "Titanium", "price_adder": 233 },
+                    { "code": "7", "description": "Platinum", "price_adder": 1314 },
+                    { "code": "N", "description": "Low noise (aluminumoxide) - Base HC22", "price_adder": 313 },
+                    { "code": "P", "description": "316 L - (pointed electrode)", "price_adder": 11 },
+                    { "code": "H", "description": "Hastelloy C22 - (pointed electrode)", "price_adder": 58 }
+                ],
+                "Protection category": [
+                    { "code": "1", "description": "IP 67", "price_adder": 0 },
+                    { "code": "2", "description": "IP 68 / Field (stainless steel connection box)", "price_adder": 579 },
+                    { "code": "3", "description": "IP 68 Factory (stainless steel connection box)", "price_adder": 632 },
+                    { "code": "A", "description": "IP 68 / Field (aluminum connection box)", "price_adder": 362 },
+                    { "code": "B", "description": "IP 68 Factory (aluminum connection box)", "price_adder": 395 },
+                    { "code": "9", "description": "IP 67 + Internally Resined", "price_adder": "see page 35" },
+                    { "code": "C", "description": "IP 68 / Field + Internally Resined (stainless steel connection box)", "price_adder": "\"2\" + see page 35" },
+                    { "code": "D", "description": "IP 68 Factory + Internally Resined (stainless steel connection box)", "price_adder": "\"3\" + see page 35" },
+                    { "code": "E", "description": "IP 68 / Field + Internally Resined (aluminum connection box)", "price_adder": "\"A\" + see page 35" },
+                    { "code": "F", "description": "IP 68 Factory + Internally Resined (aluminum connection box)", "price_adder": "\"B\" + see page 35" }
+                ],
+                "Cable": [
+                    { "code": "0", "description": "Compact - without / separate DS", "price_adder": 0 },
+                    { "code": "1", "description": "Separate BTS", "price_adder": "see page 31" }
+                ],
+                "Cable length": [
+                    { "code": "0", "description": "Compact - none / separate - 5 m - 15 ft", "price_adder": 0 },
+                    { "code": "1", "description": "10 m - 30 ft", "price_adder": "see page 31" },
+                    { "code": "2", "description": "15 m - 45 ft", "price_adder": "see page 31" },
+                    { "code": "3", "description": "20 m - 60 ft", "price_adder": "see page 31" },
+                    { "code": "4", "description": "25 m - 75 ft", "price_adder": "see page 31" },
+                    { "code": "5", "description": "30 m - 90 ft", "price_adder": "see page 31" },
+                    { "code": "6", "description": "40 m - 120 ft", "price_adder": "see page 31" },
+                    { "code": "7", "description": "50 m - 150 ft", "price_adder": "see page 31" },
+                    { "code": "8", "description": "100 m - 300 ft", "price_adder": "see page 31" }
+                ],
+                "Calibration": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Stainless Steel 1.4301 (304) tagplate", "price_adder": 44 }
+                ],
+                "Construction requirements": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Group 1", "status": "pending" },
+                    { "code": "2", "description": "Group 2", "status": "pending" },
+                    { "code": "3", "description": "Group 3", "status": "pending" }
+                ],
+                "QA / QC requirements": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Group 1", "status": "pending" },
+                    { "code": "2", "description": "Group 2", "status": "pending" },
+                    { "code": "3", "description": "Group 3", "status": "pending" }
+                ]
+            }
+        ]
+    }
+}
