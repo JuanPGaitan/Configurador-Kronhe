@@ -96,7 +96,7 @@
                 ],
                 "Cable": [
                     { "code": "0", "description": "Compact - without / separate DS", "price_adder": 0 },
-                    { "code": "1", "description": "Separate BTS", "price_adder": "see page 31" }
+                    { "code": "1", "description": "Separate BTS", "price_adder": 0 }
                 ],
                 "Cable length": [
                     { "code": "0", "description": "Compact - none / separate - 5 m - 15 ft", "price_adder": 0 },

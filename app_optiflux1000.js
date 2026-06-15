@@ -193,6 +193,57 @@ function buildTriggerHTML(opt) {
   return `<span class="trigger-code">${opt.code}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
 }
 
+
+// ── Cable helpers ──────────────────────────────────────────
+const CABLE_METERS_MAP = { '0':0, '1':10, '2':15, '3':20, '4':25, '5':30, '6':40, '7':50, '8':100 };
+const CABLE_PRICE_PER_METER_MAP = { '0': 22, '1': 33 };
+
+function getCableCode() {
+  const entry = Object.values(selections).find(s => s.section.toLowerCase().trim() === 'cable');
+  return entry ? entry.code : '0';
+}
+
+function calcCableLengthPrice(lengthCode) {
+  const meters = CABLE_METERS_MAP[lengthCode] ?? 0;
+  const ppm    = CABLE_PRICE_PER_METER_MAP[getCableCode()] ?? 22;
+  return meters * ppm;
+}
+
+function isCableLengthSection(title) {
+  const t = title.toLowerCase();
+  return t.includes('cable length') || t.includes('cable lenght');
+}
+
+function refreshCableLengthDropdownRows() {
+  // Only update unselected rows — don't touch the trigger
+  document.querySelectorAll('#configurator .custom-select-wrapper').forEach(wrapper => {
+    const lbl = wrapper.closest('.select-row')?.querySelector('label');
+    if (!lbl || !isCableLengthSection(lbl.textContent)) return;
+    wrapper.querySelectorAll('.dropdown-table tbody tr').forEach(row => {
+      const codeCell  = row.querySelector('.col-code');
+      const priceCell = row.querySelector('.col-price');
+      if (!codeCell || !priceCell) return;
+      const calcPrice = calcCableLengthPrice(codeCell.textContent.trim());
+      const pd = formatPriceDisplay(calcPrice);
+      priceCell.textContent = pd.text;
+      priceCell.className = `col-price ${pd.cls}`;
+    });
+    // Also update trigger if a row is already selected
+    const selectedRow = wrapper.querySelector('.dropdown-table tbody tr.selected');
+    if (selectedRow) {
+      const trigger = wrapper.querySelector('.trigger-text');
+      if (trigger && !trigger.classList.contains('placeholder')) {
+        const codeCell = selectedRow.querySelector('.col-code');
+        const desc = selectedRow.querySelector('.col-desc')?.textContent || '';
+        const calcPrice = calcCableLengthPrice(codeCell.textContent.trim());
+        const pd = formatPriceDisplay(calcPrice);
+        const priceStr = pd.text ? `<span class="trigger-price ${pd.cls}">${pd.text}</span>` : '';
+        trigger.innerHTML = `<span class="trigger-code">${codeCell.textContent.trim()}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
+      }
+    }
+  });
+}
+
 function renderSelect(options, path, parent) {
   const sectionTitle = path.split('.').slice(-1)[0].replace('__group','Opción');
   const row = document.createElement('div');
@@ -220,7 +271,16 @@ function renderSelect(options, path, parent) {
       tbody.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
       tr.classList.add('selected');
       const t = trigger.querySelector('.trigger-text');
-      t.innerHTML = buildTriggerHTML(opt);
+      if (isCableLengthSection(sectionTitle)) {
+        // Use calculated price instead of JSON price
+        const calcPrice = calcCableLengthPrice(opt.code);
+        const pd = formatPriceDisplay(calcPrice);
+        const desc = opt._name || opt.description || opt.dn || opt.code;
+        const priceStr = pd.text ? `<span class="trigger-price ${pd.cls}">${pd.text}</span>` : '';
+        t.innerHTML = `<span class="trigger-code">${opt.code}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
+      } else {
+        t.innerHTML = buildTriggerHTML(opt);
+      }
       t.classList.remove('placeholder');
       closeAllDropdowns();
       onOptionSelected(opt, path, sectionTitle, parent);
@@ -251,6 +311,21 @@ function renderSelect(options, path, parent) {
     t.innerHTML = buildTriggerHTML(only);
     t.classList.remove('placeholder');
     onOptionSelected(only, path, sectionTitle, parent);
+  }
+
+  // Auto-select code "0" for Cable and other default-zero sections
+  const autoZeroSections = ['cable', 'calibration', 'construction requirements', 'qa / qc requirements', 'qa/qc requirements'];
+  if (autoZeroSections.includes(sectionTitle.toLowerCase().trim())) {
+    const defaultRow = Array.from(tbody.querySelectorAll('tr')).find(r => {
+      const c = r.querySelector('.col-code');
+      return c && c.textContent.trim() === '0';
+    });
+    if (defaultRow) defaultRow.click();
+  }
+
+  // When Cable length renders, update row prices
+  if (isCableLengthSection(sectionTitle)) {
+    setTimeout(refreshCableLengthDropdownRows, 50);
   }
 }
 
@@ -287,6 +362,10 @@ function onOptionSelected(opt, path, sectionTitle, parent) {
       }
     });
   }
+  // If Cable type changed, refresh Cable length rows and trigger
+  if (sectionTitle.toLowerCase().trim() === 'cable') {
+    setTimeout(refreshCableLengthDropdownRows, 50);
+  }
   updateSummary();
 }
 
@@ -308,6 +387,13 @@ function updateSummary() {
     noteEl.classList.add('hidden'); dlBtn.classList.add('hidden');
     return;
   }
+  // Recalculate Cable length price
+  const clKey = Object.keys(selections).find(k => {
+    const s = selections[k].section.toLowerCase();
+    return s.includes('cable length') || s.includes('cable lenght');
+  });
+  if (clKey) selections[clKey].price = calcCableLengthPrice(selections[clKey].code);
+
   const sorted = keys.slice().sort((a,b) => sectionOrder.indexOf(a) - sectionOrder.indexOf(b));
   codeEl.textContent = sorted.map(k => selections[k].code).join('');
   listEl.innerHTML = '';
