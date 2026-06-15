@@ -243,6 +243,65 @@ function refreshCableLengthDropdownRows() {
   });
 }
 
+
+// ── Grounding ring / Ring material helpers ─────────────────
+const GROUNDING_PRICES = {
+  '2': {'Y': 79,  'Z': 168},
+  '3': {'Y': 101, 'Z': 214},
+  '4': {'Y': 101, 'Z': 214},
+  '5': {'Y': 258, 'Z': 513},
+  '6': {'Y': 135, 'Z': 270},
+  '7': {'Y': 944, 'Z': 1885},
+  'N': {'Y': 101, 'Z': 214},
+  'P': {'Y': 79,  'Z': 168},
+  'H': {'Y': 101, 'Z': 214},
+};
+
+function getElectrodeCode() {
+  const entry = Object.values(selections).find(s => s.section.toLowerCase().trim() === 'electrodes');
+  return entry ? entry.code : '2';
+}
+
+function isGroundingSection(title) {
+  const t = title.toLowerCase().trim();
+  return t === 'ring / material' || t === 'grounding ring material';
+}
+
+function calcGroundingPrice(ringCode) {
+  const eCode = getElectrodeCode();
+  const prices = GROUNDING_PRICES[eCode] || GROUNDING_PRICES['2'];
+  if (ringCode === 'Y') return prices['Y'];
+  if (ringCode === 'Z') return prices['Z'];
+  return null; // other codes keep their original price
+}
+
+function refreshGroundingRows() {
+  document.querySelectorAll('#configurator .custom-select-wrapper').forEach(wrapper => {
+    const lbl = wrapper.closest('.select-row')?.querySelector('label');
+    if (!lbl || !isGroundingSection(lbl.textContent)) return;
+    wrapper.querySelectorAll('.dropdown-table tbody tr').forEach(row => {
+      const codeCell  = row.querySelector('.col-code');
+      const priceCell = row.querySelector('.col-price');
+      if (!codeCell || !priceCell) return;
+      const code = codeCell.textContent.trim();
+      const calcPrice = calcGroundingPrice(code);
+      if (calcPrice === null) return; // not Y or Z, keep original
+      const pd = formatPriceDisplay(calcPrice);
+      priceCell.textContent = pd.text;
+      priceCell.className = `col-price ${pd.cls}`;
+      // Update trigger if selected
+      if (row.classList.contains('selected')) {
+        const trigger = wrapper.querySelector('.trigger-text');
+        if (trigger && !trigger.classList.contains('placeholder')) {
+          const desc = row.querySelector('.col-desc')?.textContent || '';
+          const priceStr = pd.text ? `<span class="trigger-price ${pd.cls}">${pd.text}</span>` : '';
+          trigger.innerHTML = `<span class="trigger-code">${code}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
+        }
+      }
+    });
+  });
+}
+
 function renderSelect(options, path, parent) {
   const sectionTitle = path.split('.').slice(-1)[0].replace('__group','Opción');
   const row = document.createElement('div');
@@ -271,9 +330,14 @@ function renderSelect(options, path, parent) {
       tr.classList.add('selected');
       const t = trigger.querySelector('.trigger-text');
       if (isCableLengthSection(sectionTitle)) {
-        // Use calculated price instead of JSON price
         const calcPrice = calcCableLengthPrice(opt.code);
         const pd = formatPriceDisplay(calcPrice);
+        const desc = opt._name || opt.description || opt.dn || opt.code;
+        const priceStr = pd.text ? `<span class="trigger-price ${pd.cls}">${pd.text}</span>` : '';
+        t.innerHTML = `<span class="trigger-code">${opt.code}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
+      } else if (isGroundingSection(sectionTitle)) {
+        const calcPrice = calcGroundingPrice(opt.code);
+        const pd = calcPrice !== null ? formatPriceDisplay(calcPrice) : formatPriceDisplay(getPrice(opt));
         const desc = opt._name || opt.description || opt.dn || opt.code;
         const priceStr = pd.text ? `<span class="trigger-price ${pd.cls}">${pd.text}</span>` : '';
         t.innerHTML = `<span class="trigger-code">${opt.code}</span><span class="trigger-sep">—</span><span class="trigger-desc">${desc}</span>${priceStr}`;
@@ -322,9 +386,23 @@ function renderSelect(options, path, parent) {
     if (defaultRow) defaultRow.click();
   }
 
+  // Auto-select code "2" for Electrodes
+  if (sectionTitle.toLowerCase().trim() === 'electrodes') {
+    const defaultRow = Array.from(tbody.querySelectorAll('tr')).find(r => {
+      const c = r.querySelector('.col-code');
+      return c && c.textContent.trim() === '2';
+    });
+    if (defaultRow) defaultRow.click();
+  }
+
   // When Cable length renders, update row prices
   if (isCableLengthSection(sectionTitle)) {
     setTimeout(refreshCableLengthDropdownRows, 50);
+  }
+
+  // When grounding section renders, update Y/Z prices
+  if (isGroundingSection(sectionTitle)) {
+    setTimeout(refreshGroundingRows, 50);
   }
 }
 
@@ -365,6 +443,10 @@ function onOptionSelected(opt, path, sectionTitle, parent) {
   if (sectionTitle.toLowerCase().trim() === 'cable') {
     setTimeout(refreshCableLengthDropdownRows, 50);
   }
+  // If Electrodes changed, refresh grounding ring prices
+  if (sectionTitle.toLowerCase().trim() === 'electrodes') {
+    setTimeout(refreshGroundingRows, 50);
+  }
   updateSummary();
 }
 
@@ -392,6 +474,13 @@ function updateSummary() {
     return s.includes('cable length') || s.includes('cable lenght');
   });
   if (clKey) selections[clKey].price = calcCableLengthPrice(selections[clKey].code);
+
+  // Recalculate grounding ring price
+  const grKey = Object.keys(selections).find(k => isGroundingSection(selections[k].section));
+  if (grKey) {
+    const calcGr = calcGroundingPrice(selections[grKey].code);
+    if (calcGr !== null) selections[grKey].price = calcGr;
+  }
 
   const sorted = keys.slice().sort((a,b) => sectionOrder.indexOf(a) - sectionOrder.indexOf(b));
   codeEl.textContent = sorted.map(k => selections[k].code).join('');
