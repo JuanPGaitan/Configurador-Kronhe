@@ -508,7 +508,7 @@ function updateSummary() {
   if (allFilled) {
     const totalWithExtra = total + extraCost;
     priceEl.textContent = `USD ${totalWithExtra.toLocaleString()}`;
-    const saleBase = totalWithExtra * 0.5 * 1.4 * 1.8;
+    const saleBase = totalWithExtra * 0.35 * 1.4 * 1.8;
     const saleAfterDiscount = saleBase * (1 - discount / 100);
     saleEl.textContent = `USD ${Math.round(saleAfterDiscount).toLocaleString()}`;
     if (hasOnRequest || hasRef) noteEl.classList.remove('hidden'); else noteEl.classList.add('hidden');
