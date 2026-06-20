@@ -508,7 +508,10 @@ function updateSummary() {
   if (allFilled) {
     const totalWithExtra = total + extraCost;
     priceEl.textContent = `USD ${totalWithExtra.toLocaleString()}`;
-    const saleBase = totalWithExtra * 0.35 * 1.4 * 1.8;
+    const multA = parseFloat(document.getElementById('mult-a')?.value) || 0.35;
+    const multB = parseFloat(document.getElementById('mult-b')?.value) || 1.4;
+    const multC = parseFloat(document.getElementById('mult-c')?.value) || 1.8;
+    const saleBase = total * multA * multB * multC;
     const saleAfterDiscount = saleBase * (1 - discount / 100);
     saleEl.textContent = `USD ${Math.round(saleAfterDiscount).toLocaleString()}`;
     if (hasOnRequest || hasRef) noteEl.classList.remove('hidden'); else noteEl.classList.add('hidden');

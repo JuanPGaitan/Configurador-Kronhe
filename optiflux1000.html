@@ -56,12 +56,28 @@
           <div class="input-wrap"><input type="number" id="discount" class="summary-input" placeholder="0" min="0" max="100" oninput="updateSummary()"><span class="input-suffix">%</span></div>
         </div>
         <div class="summary-divider"></div>
+        <div class="multiplier-row">
+          <div class="multiplier-field">
+            <label class="multiplier-label">Desc MT</label>
+            <input type="number" class="multiplier-input" id="mult-a" value="0.35" step="0.01" oninput="updateSummary()">
+          </div>
+          <div class="multiplier-field">
+            <label class="multiplier-label">Import.</label>
+            <input type="number" class="multiplier-input" id="mult-b" value="1.4" step="0.01" oninput="updateSummary()">
+          </div>
+          <div class="multiplier-field">
+            <label class="multiplier-label">Benef MT</label>
+            <input type="number" class="multiplier-input" id="mult-c" value="1.8" step="0.01" oninput="updateSummary()">
+          </div>
+        </div>
+        <div class="summary-divider"></div>
         <div class="summary-total-row">
           <span class="total-label">PRECIO DE VENTA</span>
           <span id="sale-price" class="total-price sale">—</span>
         </div>
         <p id="on-request-note" class="on-request-note hidden">* Algunos ítems requieren cotización.</p>
         <button id="download-btn" class="download-btn hidden" onclick="downloadExcel()">⬇ Descargar configuración</button>
+        <button id="sap-btn" class="download-btn hidden" style="margin-top:0.5rem;background:#2e7d32" onclick="downloadSAP()">⬇ Descargar Código SAP</button>
       </div>
     </aside>
   </div>

@@ -47,6 +47,9 @@
                 "Converter housing": [
                     { "code": "1", "description": "Standard", "price_adder": 0 }
                 ],
+                "Valor fijo": [
+                    { "code": "0", "description": "Valor fijo", "price_adder": 0 }
+                ],
                 "Communication": [
                     { "code": "1", "description": "Basic IO (4-20 mA / HART + pulse / frequency / status)", "price_adder": 0 },
                     { "code": "R", "description": "Basic IO + Modbus RTU (RS-485)", "price_adder": 84 }
