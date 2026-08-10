@@ -768,3 +768,38 @@ header .subtitle {
   outline: none;
 }
 .multiplier-input:focus { border-color: var(--blue-light); }
+
+/* ── Language toggle ─────────────────────────────────────── */
+.lang-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+.lang-btn {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s, border-color 0.15s;
+  width: 36px;
+  height: 26px;
+  overflow: hidden;
+}
+.lang-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+.lang-btn.active {
+  opacity: 1;
+  border-color: var(--accent);
+}
+.lang-btn:hover { opacity: 1; }

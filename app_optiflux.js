@@ -1,3 +1,30 @@
+// ── Idioma ─────────────────────────────────────────────────
+const LANG = new URLSearchParams(window.location.search).get('lang') || 'en';
+
+function setLang(lang) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('lang', lang);
+  window.location.href = url.toString();
+}
+
+// Marca el botón activo
+document.addEventListener('DOMContentLoaded', () => {
+  const enBtn = document.getElementById('lang-en');
+  const esBtn = document.getElementById('lang-es');
+  if (enBtn) enBtn.classList.toggle('active', LANG === 'en');
+  if (esBtn) esBtn.classList.toggle('active', LANG === 'es');
+});
+
+// ── Configuración del producto ─────────────────────────────
+const JSON_SUFFIX = LANG === 'es' ? ' - ESP' : '';
+
+const PRODUCT_CONFIG = {
+  jsonFile:     window.PRODUCT_JSON     ? window.PRODUCT_JSON.replace('.json', `${JSON_SUFFIX}.json`) : `./data/optiflux_1000${JSON_SUFFIX}.json`,
+  modelName:    window.PRODUCT_MODEL    || 'OPTIFLUX 1000',
+  filePrefix:   window.PRODUCT_PREFIX   || 'OPTIFLUX_1000',
+  multADefault: window.PRODUCT_MULT_A   || 0.35,
+};
+
 const selections = {};
 let sectionOrder = [];
 
@@ -100,7 +127,8 @@ function waitForDropdowns(callback, attempts) {
 }
 
 
-fetch('./data/optiflux_2000_hardrubber_full.json')
+
+fetch(PRODUCT_CONFIG.jsonFile)
   .then(r => r.json())
   .then(data => { buildConfigurator(data); autoDecodeFromURL(); })
   .catch(err => console.error('Error cargando JSON:', err));
@@ -195,7 +223,7 @@ function buildTriggerHTML(opt) {
 
 // ── Cable helpers ──────────────────────────────────────────
 const CABLE_METERS_MAP = { '0':0, '1':10, '2':15, '3':20, '4':25, '5':30, '6':40, '7':50, '8':100 };
-const CABLE_PRICE_PER_METER_MAP = { '0': 22, '1': 33 };
+const CABLE_PRICE_PER_METER_MAP = { '0': 23, '1': 34 };
 
 function getCableCode() {
   const entry = Object.values(selections).find(s => s.section.toLowerCase().trim() === 'cable');
@@ -246,15 +274,15 @@ function refreshCableLengthDropdownRows() {
 
 // ── Grounding ring / Ring material helpers ─────────────────
 const GROUNDING_PRICES = {
-  '2': {'Y': 79,  'Z': 168},
-  '3': {'Y': 101, 'Z': 214},
-  '4': {'Y': 101, 'Z': 214},
-  '5': {'Y': 258, 'Z': 513},
-  '6': {'Y': 135, 'Z': 270},
-  '7': {'Y': 944, 'Z': 1885},
-  'N': {'Y': 101, 'Z': 214},
-  'P': {'Y': 79,  'Z': 168},
-  'H': {'Y': 101, 'Z': 214},
+  '2': {'Y': 82,  'Z': 173},
+  '3': {'Y': 104, 'Z': 220},
+  '4': {'Y': 104, 'Z': 220},
+  '5': {'Y': 266, 'Z': 528},
+  '6': {'Y': 139, 'Z': 278},
+  '7': {'Y': 971, 'Z': 1938},
+  'N': {'Y': 104, 'Z': 220},
+  'P': {'Y': 82,  'Z': 173},
+  'H': {'Y': 104, 'Z': 220},
 };
 
 function getElectrodeCode() {
@@ -507,17 +535,25 @@ function updateSummary() {
   if (allFilled) {
     const totalWithExtra = total + extraCost;
     priceEl.textContent = `USD ${totalWithExtra.toLocaleString()}`;
-    const multA = parseFloat(document.getElementById('mult-a')?.value) || 0.5;
+    const multA = parseFloat(document.getElementById('mult-a')?.value) || PRODUCT_CONFIG.multADefault;
     const multB = parseFloat(document.getElementById('mult-b')?.value) || 1.4;
     const multC = parseFloat(document.getElementById('mult-c')?.value) || 1.8;
-    const saleBase = total * multA * multB * multC;
+    const saleBase = totalWithExtra * multA * multB * multC;
     const saleAfterDiscount = saleBase * (1 - discount / 100);
     saleEl.textContent = `USD ${Math.round(saleAfterDiscount).toLocaleString()}`;
     if (hasOnRequest || hasRef) noteEl.classList.remove('hidden'); else noteEl.classList.add('hidden');
     dlBtn.classList.remove('hidden');
+      if (LANG === 'es') {
+          dlBtn.classList.add('hidden');
+          document.getElementById('sap-btn')?.classList.remove('hidden');
+        } else {
+          dlBtn.classList.remove('hidden');
+          document.getElementById('sap-btn')?.classList.add('hidden');
+        };
   } else {
     priceEl.textContent = '—'; saleEl.textContent = '—';
     noteEl.classList.add('hidden'); dlBtn.classList.add('hidden');
+    document.getElementById('sap-btn')?.classList.add('hidden');
   }
 }
 
@@ -531,5 +567,53 @@ function downloadExcel() {
   ws['!cols'] = [{wch:12},{wch:35},{wch:60}];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Configuración');
-  XLSX.writeFile(wb, `OPTIFLUX_2000_${equipCode}.xlsx`);
+  XLSX.writeFile(wb, `${PRODUCT_CONFIG.filePrefix}_${equipCode}.xlsx`);
+}
+
+function downloadSAP() {
+  const sorted = Object.keys(selections).slice().sort((a,b) => sectionOrder.indexOf(a) - sectionOrder.indexOf(b));
+  const equipCode = sorted.map(k => selections[k].code).join('');
+
+  const SAP_SECTIONS = [
+    'diámetro nominal',
+    'presión nominal',
+    'aprobación',
+    'diseño del sistema',
+    'modelo del convertidor',
+    'recubrimiento',
+    'electrodos',
+    'calibración',
+    'protección',
+    'referecnia tierra',
+    'largo de cable',
+  ];
+
+  const descLarga = sorted
+    .filter(k => SAP_SECTIONS.includes(selections[k].section.toLowerCase().trim()))
+    .map(k => `${selections[k].section}: ${selections[k].description}`)
+    .join('\n');
+
+  const rows = [
+    ['Código', 'Descripción Corta', 'Descripción Larga', 'Grupo de artículos', 'Proveedor de compra/facturación', 'IVA venta'],
+    [
+      `KC${equipCode}`,
+      `Caudalímetro Electromagnético. Marca KROHNE, modelo ${PRODUCT_CONFIG.modelName}`,
+      descLarga,
+      1030,
+      'EX000000010',
+      '10,5'
+    ]
+  ];
+
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+
+  // Enable wrap text on the Descripción Larga cell (B2)
+  if (!ws['C2']) ws['C2'] = {};
+  ws['C2'].s = { alignment: { wrapText: true, vertical: 'top' } };
+
+  ws['!cols'] = [{wch:25},{wch:55},{wch:80},{wch:18},{wch:28},{wch:10}];
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'SAP');
+  XLSX.writeFile(wb, `SAP_${PRODUCT_CONFIG.filePrefix}_${equipCode}.xlsx`);
 }

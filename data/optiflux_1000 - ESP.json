@@ -1,0 +1,131 @@
+{
+    "OPTIFLUX 1000": {
+        "Primary Heads": [
+            {
+                "code": "VB174",
+                "_name": "Optiflux 1000 - DN 2.5 - 250",
+                "price_usd": 0,
+                "Diámetro Nominal": [
+                    { "code": "F", "description": "DN 2,5 / 1/10", "price_usd": 1481 },
+                    { "code": "G", "description": "DN 4,0 / 5/32", "price_usd": 1481 },
+                    { "code": "H", "description": "DN 6,0 / ¼", "price_usd": 1481 },
+                    { "code": "1", "description": "DN 10 / 3/8", "price_usd": 1492 },
+                    { "code": "2", "description": "DN 15 / ½", "price_usd": 1292 },
+                    { "code": "3", "description": "DN 20 / 3/4", "price_usd": 1317 },
+                    { "code": "4", "description": "DN 25 / 1", "price_usd": 1311 },
+                    { "code": "6", "description": "DN 40 / 1½", "price_usd": 1251 },
+                    { "code": "7", "description": "DN 50 / 2", "price_usd": 1063 },
+                    { "code": "8", "description": "DN 65 / 2½", "price_usd": 1156 },
+                    { "code": "A", "description": "DN 80 / 3", "price_usd": 1226 },
+                    { "code": "B", "description": "DN 100 / 4", "price_usd": 1486 },
+                    { "code": "D", "description": "DN 150 / 6", "price_usd": 1899 },
+                    { "code": "E", "description": "DN 200 / 8", "price_usd": 2748 },
+                    { "code": "J", "description": "DN 250 / 10", "price_usd": 3650 }
+                ],
+                "Presión Nominal": [
+                    { "code": "3", "description": "PN 16 EN 1092-1 (DN 100 - DN 250) (max. 16 bar)", "price_adder": 0 },
+                    { "code": "5", "description": "PN 40 EN 1092-1 (DN 2,5 - DN 80) (max. 16 bar)", "price_adder": 0 },
+                    { "code": "A", "description": "150 lb ANSI RF (3/8\" - 10\") (max. 232 psi)", "price_adder": 0 },
+                    { "code": "B", "description": "300 lb ANSI RF (3/8\" - 4\") (max. 232 psi)", "price_adder": 0 }
+                ],
+                "Aprobación": [
+                    { "code": "0", "description": "non Ex", "price_adder": 0 },
+                    { "code": "A", "description": "CSA Ordinary Location", "price_adder": 107 }
+                ],
+                "Diseño del sistema": [
+                    { "code": "1", "description": "Compacto  recubrimiento de aluminio", "price_adder": 0 },
+                    { "code": "2", "description": "Compacto con recubrimiento de acero inoxidable", "price_adder": 0 },
+                    { "code": "3", "description": "Modular", "price_adder": -105 },
+                    { "code": "4", "description": "Remoto con recubrimiento de aluminio / 1/2\" NPT", "price_adder": 17 },
+                    { "code": "5", "description": "Remoto con recubrimiento de aluminio / PF 1/2", "price_adder": 17 },
+                    { "code": "6", "description": "Remoto con recubrimiento de aluminio / M20 x 1,5", "price_adder": 0 },
+                    { "code": "A", "description": "Remoto con recubrimiento de acero inoxidable / 1/2\" NPT ", "price_adder": 306 },
+                    { "code": "B", "description": "Remoto con recubrimiento de acero inoxidable / PF 1/2", "price_adder": 306 },
+                    { "code": "C", "description": "Remoto con recubrimiento de acero inoxidable / M20 x 1,5", "price_adder": 306 }
+                ],
+                "Modelo del convertidor": [
+                    { "code": "0", "description": "Modular", "price_adder": 0 },
+                    { "code": "I", "description": "IFC 100 W (Remoto en pared)", "price_adder": 0 },
+                    { "code": "H", "description": "IFC 100 C (compacto)", "price_adder": 0 },
+                    { "code": "J", "description": "IFC 100 C 45º (compacto)", "price_adder": 0 },
+                    { "code": "C", "description": "IFC 300 C (compacto)", "price_adder": 0 },
+                    { "code": "D", "description": "IFC 300 F (Remoto en campo)", "price_adder": 0 },
+                    { "code": "E", "description": "IFC 300 W (Remoto en pared)", "price_adder": 0 },
+                    { "code": "F", "description": "IFC 300 R (Remoto en rack)", "price_adder": 0 },
+                    { "code": "K", "description": "IFC 050 C (compacto)", "price_adder": 0 },
+                    { "code": "L", "description": "IFC 050 W (Remoto en pared)", "price_adder": 0 }
+                ],
+                "Material de Montaje": [
+                    { "code": "1", "description": "Steel, galv.", "price_adder": "see page 1" },
+                    { "code": "2", "description": "Stainless Steel A2", "price_adder": "see page 1" },
+                    { "code": "3", "description": "Rubber sleeves", "price_adder": 0 }
+                ],
+                "Referencia Tierra": [
+                    { "code": "1", "description": "Acero inoxidable 1.4404 - 316 L (DN 2,5 - DN 25), sin (DN 40 - DN250)", "price_adder": 0 },
+                    { "code": "K", "description": "Acero inoxidable 1.4404 - 316 L tipo 1 (DN 40 - DN 250)", "price_adder": "see page 3" },
+                    { "code": "Y", "description": "3er electrodo (DN50...DN250 | 2\"...10\" )", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." }
+                ],
+                "Recubrimiento": [
+                    { "code": "0", "description": "FEP (standard)", "price_adder": 0 },
+                    { "code": "3", "description": "PFA", "price_adder": "see page 4" },
+                    { "code": "2", "description": "Goma dura DN 2\" - DN 10\"", "price_adder": "see page 4" },
+                    { "code": "5", "description": "Poliuretano DN 2\" - DN 10\"", "price_adder": "see page 4" }
+                ],
+                "Electrodos": [
+                    { "code": "2", "description": "316 L (standard)", "price_adder": 0 },
+                    { "code": "3", "description": "Hastelloy C22", "price_adder": 50 },
+                    { "code": "4", "description": "Hastelloy B2", "price_adder": 240 },
+                    { "code": "5", "description": "Tantalio", "price_adder": 475 },
+                    { "code": "6", "description": "Titanio", "price_adder": 240 },
+                    { "code": "7", "description": "Platino", "price_adder": 1351 },
+                    { "code": "N", "description": "Bajo ruido (óxido de aluminio) - Base HC22", "price_adder": 322 },
+                    { "code": "P", "description": "316 L - (electrodo punteado)", "price_adder": 12 },
+                    { "code": "H", "description": "Hastelloy C22 - (electrodo punteado)", "price_adder": 60 }
+                ],
+                "Protección": [
+                    { "code": "1", "description": "IP 67", "price_adder": 0 },
+                    { "code": "2", "description": "IP 68 / Campo (recubrimiento de acero inoxidable)", "price_adder": 596 },
+                    { "code": "3", "description": "IP 68 Fábrica (recubrimiento de acero inoxidable)", "price_adder": 650 },
+                    { "code": "A", "description": "IP 68 / Campo (recubrimiento de aluminio)", "price_adder": 373 },
+                    { "code": "B", "description": "IP 68 Fábrica (recubrimiento de aluminio)", "price_adder": 407 },
+                    { "code": "9", "description": "IP 67 + Resina interna", "price_adder": "see page 35" },
+                    { "code": "C", "description": "IP 68 / Campo + Resina interna (recubrimiento de acero inoxidable)", "price_adder": "\"2\" + see page 35" },
+                    { "code": "D", "description": "IP 68 Fábrica + Resina interna (recubrimiento de acero inoxidable)", "price_adder": "\"3\" + see page 35" },
+                    { "code": "E", "description": "IP 68 / Campo + Resina interna (recubrimiento de aluminio)", "price_adder": "\"A\" + see page 35" },
+                    { "code": "F", "description": "IP 68 Fábrica + Resina interna (recubrimiento de aluminio)", "price_adder": "\"B\" + see page 35" }
+                ],
+                "Cable": [
+                    { "code": "0", "description": "Compact - without / separate DS", "price_adder": 0 },
+                    { "code": "1", "description": "Separate BTS", "price_adder": 0 }
+                ],
+                "Largo de cable": [
+                    { "code": "0", "description": "Compacto - sin cable / remoto - 5 m", "price_adder": 0 },
+                    { "code": "1", "description": "10 m", "price_adder": "see page 31" },
+                    { "code": "2", "description": "15 m", "price_adder": "see page 31" },
+                    { "code": "3", "description": "20 m", "price_adder": "see page 31" },
+                    { "code": "4", "description": "25 m", "price_adder": "see page 31" },
+                    { "code": "5", "description": "30 m", "price_adder": "see page 31" },
+                    { "code": "6", "description": "40 m", "price_adder": "see page 31" },
+                    { "code": "7", "description": "50 m", "price_adder": "see page 31" },
+                    { "code": "8", "description": "100 m", "price_adder": "see page 31" }
+                ],
+                "Calibración": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Stainless Steel 1.4301 (304) tagplate", "price_adder": 46 }
+                ],
+                "Requerimientos de Construcción": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Groupo 1", "status": "pending" },
+                    { "code": "2", "description": "Groupo 2", "status": "pending" },
+                    { "code": "3", "description": "Groupo 3", "status": "pending" }
+                ],
+                "Requerimientos de QA / QC": [
+                    { "code": "0", "description": "Standard", "price_adder": 0 },
+                    { "code": "1", "description": "Groupo 1", "status": "pending" },
+                    { "code": "2", "description": "Groupo 2", "status": "pending" },
+                    { "code": "3", "description": "Groupo 3", "status": "pending" }
+                ]
+            }
+        ]
+    }
+}
