@@ -584,7 +584,7 @@ function downloadSAP() {
     'electrodos',
     'calibración',
     'protección',
-    'referecnia tierra',
+    'referencia tierra',
     'largo de cable',
   ];
 
