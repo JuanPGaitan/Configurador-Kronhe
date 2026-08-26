@@ -114,7 +114,7 @@
                     { "code": "6", "description": "Anillo #1 / 1.4404 - 316 L", "price_adder": "see page 3" },
                     { "code": "E", "description": "Anillo #3 / 1.4404 - 316 L", "price_adder": "see page 3" },
                     { "code": "P", "description": "Anillo de protección #2 / 1.4404 - 316 L", "price_adder": "see page 3" },
-                    { "code": "Y", "description": "3er electrodo (DN50...DN150 | 2\"...6\" only)", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." }
+                    { "code": "Y", "description": "3er electrodo (DN50...DN150 | 2\"...6\")", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." }
                 ],
                 "Construction requirements": [
                     { "code": "0", "description": "Standard", "price_adder": 0 },
@@ -242,7 +242,7 @@
                     { "code": "6", "description": "Anillo #1 / 1.4404 - 316 L", "price_adder": "see page 3" },
                     { "code": "E", "description": "Anillo #3 / 1.4404 - 316 L", "price_adder": "see page 3" },
                     { "code": "P", "description": "Anillo de protección #2 / 1.4404 - 316 L", "price_adder": "see page 3" },
-                    { "code": "Y", "description": "3er electrodo (DN200...DN250 | 8\"...10\" only)", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." },
+                    { "code": "Y", "description": "3er electrodo (DN200...DN250 | 8\"...10\")", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." },
                     { "code": "Z", "description": "3er y 4to electrodo (DN300...DN450 | 12\"...18\")", "price_adder": "see page 35", "note": "Not applicable when cathodic protection is used." }
                 ],
                 "Construction requirements": [
